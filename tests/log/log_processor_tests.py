@@ -33,9 +33,9 @@ def test_log_parsing():
         "23:49:08.277      039 – F.MASSA                           1		1:02.852                        44,275"
     ]
     result = processor.parse_log(rows)
-    assert result.len() == 2
-    assert result.rows[0].pilot_id == 38
-    assert result.rows[1].pilot_id == 39
+    assert len(result) == 2
+    assert result[0].pilot_id == 38
+    assert result[1].pilot_id == 39
 
 
 def test_log_file_reading():

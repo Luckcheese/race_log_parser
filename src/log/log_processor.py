@@ -15,10 +15,11 @@ class LogProcessor:
 
     def parse_log(self, log_data):
         rows = map(lambda r: self.parse_row(r), log_data)
-        logs = map(lambda r: LogRow(r), rows)
-        return Log(logs)
+        return map(lambda r: LogRow(r), rows)
+
 
     def parse_log_file(self, log_file):
         log = open(log_file, "r")
         next(log)
-        return self.parse_log(log)
+        logs = self.parse_log(log)
+        return Log(logs)
