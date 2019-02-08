@@ -49,9 +49,15 @@ class LogProcessor:
         laps_time = map(lambda x: LogProcessor.parse_time(x), laps_time_str)
         return reduce(lambda x, y: x + y, laps_time)
 
+    @staticmethod
+    def pilot_log_to_model(log):
+        race_duration = LogProcessor.compute_race_duration(log)
+        return PilotInfo(log, race_duration)
+
     def parse_log_file(self, log_file):
         log = open(log_file, "r")
         next(log)
         logs = self.parse_log(log)
-        pilots_data = self.process_log(logs)
+        pilots_logs = self.process_log(logs)
+        pilots_data = map(lambda x: LogProcessor.pilot_log_to_model(x), pilots_logs.itervalues())
         return Log(logs, pilots_data)

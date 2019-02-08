@@ -17,6 +17,21 @@ class LogRow:
         """ % (self.time, self.pilot_id, self.pilot_name, self.lap_number, self.lap_time, self.lap_av_speed)
 
 
+class PilotInfo:
+
+    def __init__(self, log_rows, race_duration):
+        assert len(log_rows) > 0
+        self.log_rows = log_rows
+        self.pilot_id = log_rows[0].pilot_id
+        self.pilot_name = log_rows[0].pilot_name
+        self.completed_laps = len(log_rows)
+        self.race_duration = race_duration
+        self.position = 0
+
+    def __str__(self):
+        return """%.3d \t %.3d - %s \t\t %.2d \t %s""" % \
+               (self.position, self.pilot_id, self.pilot_name, self.completed_laps, self.race_duration)
+
 class Log:
 
     def __init__(self, log, pilots_data):
