@@ -19,8 +19,9 @@ class LogRow:
 
 class Log:
 
-    def __init__(self, data):
-        self.rows = data
+    def __init__(self, log, pilots_data):
+        self.rows = log
+        self.pilots_data = pilots_data
 
     def len(self):
         return len(self.rows)

@@ -59,6 +59,7 @@ def test_log_file_reading():
     file_path = "test_input.txt"
     result = processor.parse_log_file(file_path)
     assert result.len() == 23
+    assert len(result.pilots_data.keys()) == 6
 
 
 test_log_row_parsing()

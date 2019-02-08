@@ -31,4 +31,5 @@ class LogProcessor:
         log = open(log_file, "r")
         next(log)
         logs = self.parse_log(log)
-        return Log(logs)
+        pilots_data = self.process_log(logs)
+        return Log(logs, pilots_data)
