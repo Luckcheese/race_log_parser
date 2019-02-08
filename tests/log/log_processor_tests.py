@@ -1,6 +1,6 @@
 # coding=utf-8
-from src.log.log_processor import LogProcessor, LogRow
-
+from src.log.log_processor import LogProcessor
+from src.log.models import LogRow
 
 processor = LogProcessor()
 
