@@ -55,6 +55,23 @@ def test_read_pilots_data():
     assert len(pilots[15]) == 1
 
 
+def test_parse_time():
+    time = "1:02.500"
+    parsed = processor.parse_time(time)
+    assert parsed.microseconds == 500000
+    assert parsed.seconds == 62
+
+
+def test_race_duration():
+    logs = [
+        LogRow(["", "0", "", "1", "1:00.000", ""]),
+        LogRow(["", "0", "", "2", "1:00.000", ""]),
+        LogRow(["", "0", "", "3", "1:00.000", ""]),
+    ]
+    duration = processor.compute_race_duration(logs)
+    assert duration.seconds == 180
+
+
 def test_log_file_reading():
     file_path = "test_input.txt"
     result = processor.parse_log_file(file_path)
@@ -66,4 +83,6 @@ test_log_row_parsing()
 test_log_data_to_model()
 test_log_parsing()
 test_read_pilots_data()
+test_parse_time()
+test_race_duration()
 test_log_file_reading()
