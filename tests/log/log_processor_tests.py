@@ -38,6 +38,23 @@ def test_log_parsing():
     assert result[1].pilot_id == 39
 
 
+def test_read_pilots_data():
+    rows = [
+        LogRow(["23:49:08.277", "038", "F.MASSA", "1", "1:02.852", "44,275"]),
+        LogRow(["23:49:10.858", "033", "R.BARRICHELLO", "1", "1:04.352", "43,243"]),
+        LogRow(["23:49:11.075", "002", "K.RAIKKONEN", "1", "1:04.108", "43,408"]),
+        LogRow(["23:49:30.976", "015", "F.ALONSO", "1", "1:18.456", "35,47"]),
+        LogRow(["23:50:11.447", "038", "F.MASSA", "2", "1:03.170", "44,053"]),
+        LogRow(["23:50:14.860", "033", "R.BARRICHELLO", "2", "1:04.002", "43,48"])
+    ]
+    pilots = processor.process_log(rows)
+    assert len(pilots.keys()) == 4
+    assert len(pilots[38]) == 2
+    assert len(pilots[33]) == 2
+    assert len(pilots[2]) == 1
+    assert len(pilots[15]) == 1
+
+
 def test_log_file_reading():
     file_path = "test_input.txt"
     result = processor.parse_log_file(file_path)
@@ -47,4 +64,5 @@ def test_log_file_reading():
 test_log_row_parsing()
 test_log_data_to_model()
 test_log_parsing()
+test_read_pilots_data()
 test_log_file_reading()

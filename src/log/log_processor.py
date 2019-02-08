@@ -17,6 +17,15 @@ class LogProcessor:
         rows = map(lambda r: self.parse_row(r), log_data)
         return map(lambda r: LogRow(r), rows)
 
+    @staticmethod
+    def process_log(log_rows):
+        agg = {}
+        for row in log_rows:
+            if row.pilot_id in agg.keys():
+                agg[row.pilot_id].append(row)
+            else:
+                agg[row.pilot_id] = [row]
+        return agg
 
     def parse_log_file(self, log_file):
         log = open(log_file, "r")
