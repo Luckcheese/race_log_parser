@@ -1,5 +1,5 @@
 # coding=utf-8
-from src.log.models import Log, LogRow, PilotInfo
+from models import Log, LogRow, PilotInfo
 from datetime import timedelta
 from operator import attrgetter
 

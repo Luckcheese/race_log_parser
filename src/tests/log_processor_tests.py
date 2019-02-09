@@ -1,6 +1,9 @@
 # coding=utf-8
-from src.log.log_processor import LogProcessor
-from src.log.models import LogRow, PilotInfo
+import sys
+sys.path.append('../')
+
+from log.log_processor import LogProcessor
+from log.models import LogRow, PilotInfo
 
 processor = LogProcessor()
 
@@ -110,3 +113,4 @@ test_parse_time()
 test_race_duration()
 test_compute_pilots_position()
 test_log_file_reading()
+print "all tests passed"
