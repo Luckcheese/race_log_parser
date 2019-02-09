@@ -29,20 +29,23 @@ def get_input_file_path():
 
 
 def print_result(log_data):
-    header = ["Posição Chegada", "Código Piloto", "Nome Piloto", "Qtde Voltas Completadas", "Tempo Total de Prova"]
+    if not log_data.race_ended:
+        print "Nenhum piloto terminou a corrida"
+    else:
+        header = ["Posição Chegada", "Código Piloto", "Nome Piloto", "Qtde Voltas Completadas", "Tempo Total de Prova"]
 
-    row_format = "{:<25}" * len(header)
-    print row_format.format(*header)
+        row_format = "{:<25}" * len(header)
+        print row_format.format(*header)
 
-    for i in log_data.pilots_data:
-        a = [
-            "%.2d" % i.position,
-            "%.3d" % i.pilot_id,
-            i.pilot_name,
-            "%.2d" % i.completed_laps,
-            i.race_duration
-        ]
-        print row_format.format(*a)
+        for i in log_data.pilots_data:
+            a = [
+                "%.2d" % i.position,
+                "%.3d" % i.pilot_id,
+                i.pilot_name,
+                "%.2d" % i.completed_laps,
+                i.race_duration
+            ]
+            print row_format.format(*a)
 
 
 file_path = get_input_file_path()

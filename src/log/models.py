@@ -31,11 +31,13 @@ class PilotInfo:
         return """%.2d \t %.3d - %s \t\t %.2d \t %s""" % \
                (self.position, self.pilot_id, self.pilot_name, self.completed_laps, self.race_duration)
 
+
 class Log:
 
-    def __init__(self, log, pilots_data):
+    def __init__(self, log, pilots_data, race_ended):
         self.rows = log
         self.pilots_data = pilots_data
+        self.race_ended = race_ended
 
     def len(self):
         return len(self.rows)

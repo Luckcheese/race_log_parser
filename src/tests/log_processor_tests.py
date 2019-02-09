@@ -105,6 +105,37 @@ def test_log_file_reading():
     assert len(result.pilots_data) == 6
 
 
+def test_if_race_ended():
+    pilots_data1 = [
+        PilotInfo([
+            LogRow(["", "01", "a", "1", "0:43.000", ""]),
+            LogRow(["", "01", "a", "2", "0:43.000", ""]),
+            LogRow(["", "01", "a", "3", "0:44.000", ""]),
+        ], "2:10.000"),
+        PilotInfo([
+            LogRow(["", "02", "b", "1", "0:30.000", ""]),
+            LogRow(["", "02", "b", "2", "0:30.000", ""]),
+        ], "1:00.000"),
+    ]
+    ended = processor.check_if_any_pilot_completed_the_race(pilots_data1)
+    assert not ended
+
+    pilots_data2 = [
+        PilotInfo([
+            LogRow(["", "01", "a", "1", "0:43.000", ""]),
+            LogRow(["", "01", "a", "2", "0:43.000", ""]),
+            LogRow(["", "01", "a", "3", "0:44.000", ""]),
+            LogRow(["", "01", "a", "3", "0:44.000", ""]),
+        ], "2:54.000"),
+        PilotInfo([
+            LogRow(["", "02", "b", "1", "0:30.000", ""]),
+            LogRow(["", "02", "b", "2", "0:30.000", ""]),
+        ], "1:00.000"),
+    ]
+    ended = processor.check_if_any_pilot_completed_the_race(pilots_data2)
+    assert ended
+
+
 test_log_row_parsing()
 test_log_data_to_model()
 test_log_parsing()
@@ -113,4 +144,5 @@ test_parse_time()
 test_race_duration()
 test_compute_pilots_position()
 test_log_file_reading()
+test_if_race_ended()
 print "all tests passed"

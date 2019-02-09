@@ -62,6 +62,14 @@ class LogProcessor:
             data.position = index + 1
         return pilots_data
 
+    @staticmethod
+    def check_if_any_pilot_completed_the_race(pilots_data):
+        race_ended = False
+        for data in pilots_data:
+            if data.completed_laps == 4:
+                race_ended = True
+        return race_ended
+
     def parse_log_file(self, log_file):
         log = open(log_file, "r")
         next(log)
@@ -69,4 +77,5 @@ class LogProcessor:
         pilots_logs = self.process_log(logs)
         pilots_data = map(lambda x: LogProcessor.pilot_log_to_model(x), pilots_logs.itervalues())
         pilots_data = LogProcessor.compute_each_pilot_position(pilots_data)
-        return Log(logs, pilots_data)
+        race_ended = self.check_if_any_pilot_completed_the_race(pilots_data)
+        return Log(logs, pilots_data, race_ended)
