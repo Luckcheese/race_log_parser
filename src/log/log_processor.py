@@ -1,6 +1,7 @@
 # coding=utf-8
 from src.log.models import Log, LogRow, PilotInfo
 from datetime import timedelta
+from operator import attrgetter
 
 
 class LogProcessor:
@@ -42,7 +43,6 @@ class LogProcessor:
             hours=time_fields[3]
         )
 
-
     @staticmethod
     def compute_race_duration(pilot_data):
         laps_time_str = map(lambda x: x.lap_time, pilot_data)
@@ -54,10 +54,19 @@ class LogProcessor:
         race_duration = LogProcessor.compute_race_duration(log)
         return PilotInfo(log, race_duration)
 
+    @staticmethod
+    def compute_each_pilot_position(pilots_data):
+        pilots_data.sort(key=attrgetter('race_duration'))
+        pilots_data.sort(key=attrgetter('completed_laps'), reverse=True)
+        for index, data in enumerate(pilots_data):
+            data.position = index + 1
+        return pilots_data
+
     def parse_log_file(self, log_file):
         log = open(log_file, "r")
         next(log)
         logs = self.parse_log(log)
         pilots_logs = self.process_log(logs)
         pilots_data = map(lambda x: LogProcessor.pilot_log_to_model(x), pilots_logs.itervalues())
+        pilots_data = LogProcessor.compute_each_pilot_position(pilots_data)
         return Log(logs, pilots_data)

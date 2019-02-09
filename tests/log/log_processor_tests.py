@@ -1,6 +1,6 @@
 # coding=utf-8
 from src.log.log_processor import LogProcessor
-from src.log.models import LogRow
+from src.log.models import LogRow, PilotInfo
 
 processor = LogProcessor()
 
@@ -72,6 +72,29 @@ def test_race_duration():
     assert duration.seconds == 180
 
 
+def test_compute_pilots_position():
+    pilots_data = [
+        PilotInfo([
+            LogRow(["", "01", "a", "1", "0:43.000", ""]),
+            LogRow(["", "01", "a", "2", "0:43.000", ""]),
+            LogRow(["", "01", "a", "3", "0:44.000", ""]),
+        ], "2:10.000"),
+        PilotInfo([
+            LogRow(["", "02", "b", "1", "0:30.000", ""]),
+            LogRow(["", "02", "b", "2", "0:30.000", ""]),
+        ], "1:00.000"),
+        PilotInfo([
+            LogRow(["", "03", "c", "1", "0:40.000", ""]),
+            LogRow(["", "03", "c", "2", "0:40.000", ""]),
+            LogRow(["", "03", "c", "3", "0:40.000", ""]),
+        ], "2:00.000"),
+    ]
+    processor.compute_each_pilot_position(pilots_data)
+    assert pilots_data[0].pilot_id == 03 and pilots_data[0].position == 1
+    assert pilots_data[1].pilot_id == 01 and pilots_data[1].position == 2
+    assert pilots_data[2].pilot_id == 02 and pilots_data[2].position == 3
+
+
 def test_log_file_reading():
     file_path = "test_input.txt"
     result = processor.parse_log_file(file_path)
@@ -85,4 +108,5 @@ test_log_parsing()
 test_read_pilots_data()
 test_parse_time()
 test_race_duration()
+test_compute_pilots_position()
 test_log_file_reading()
