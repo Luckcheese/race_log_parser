@@ -1,0 +1,12 @@
+Como rodar o código:
+- user python 2.7
+- o projeto pode rodar diretamente (`./main.py`) ou como argumento do python runner (`python main.py`)
+- o argumento `help` pode ser usado para receber instruções
+- o nome do arquivo de log pode ser passado como argumento ou durante a execução do programa
+
+Observações/Comentários:
+- não há testes do código do arquivo `main.py` pois não fazem parte da lógica de negócio do projeto;
+- pelo fato do projeto ser pequeno, acabei deixando tudo em poucos arquivos. Mas acredito que seria possível fazer uma arquitetura um pouco melhor;
+- não fiz nenhuma validação (tipo, se o log tem pelo menos 1 entrada ou se todos os dados estão presentes e no formato correto) pois não foi requerido, mas seria fácil implementa-las;
+- inicialmente pensei em fazer o parser de cada linha do log via expressão regular, porém achei q foi mais fácil fazer com split. Com expressão regular seria mais fácil de validar o arquivo, porém, acredito que com o split, fique mais fácil de atualizar o código caso haja mudanças no arquivo de log.
+- não sou um programador muito hábil em python, então acredito que deva haver erros de boas práticas ou no uso de certos métodos... Mas acredito que nada disso faça diferença para a corretude do problema.
