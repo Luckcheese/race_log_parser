@@ -12,9 +12,8 @@ class LogRow:
         self.lap_av_speed = data[5]
 
     def __str__(self):
-        return """
-            time: %s | pilotId: %d | pilotName: %s | lapNumber: %d | lapTime: %s | lapAvSpeed: %s
-        """ % (self.time, self.pilot_id, self.pilot_name, self.lap_number, self.lap_time, self.lap_av_speed)
+        return """time: %s | pilotId: %d | pilotName: %s | lapNumber: %d | lapTime: %s | lapAvSpeed: %s""" % \
+               (self.time, self.pilot_id, self.pilot_name, self.lap_number, self.lap_time, self.lap_av_speed)
 
 
 class PilotInfo:
