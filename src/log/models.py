@@ -29,7 +29,7 @@ class PilotInfo:
         self.position = 0
 
     def __str__(self):
-        return """%.3d \t %.3d - %s \t\t %.2d \t %s""" % \
+        return """%.2d \t %.3d - %s \t\t %.2d \t %s""" % \
                (self.position, self.pilot_id, self.pilot_name, self.completed_laps, self.race_duration)
 
 class Log:
